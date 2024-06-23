@@ -17,20 +17,20 @@ public class LoginServlet extends HttpServlet {
 	{
 		String email = req.getParameter("Login-email");
 		String password = req.getParameter("login-password");
-		
+		PrintWriter out = resp.getWriter();//getWritter is a static() present in PrintWriter class
 		
 		 try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306?user=root&password=MDmus@786");
-			PreparedStatement pstmt=con.prepareStatement("select * from firstproject.user where email=? and password=?");
+			PreparedStatement pstmt=con.prepareStatement("select * from firstproject.registarion where email=? and password=?");
 			pstmt.setString(1, email);
 			pstmt.setString(2, password);
-			ResultSet rs = pstmt.executeQuery();
-			PrintWriter out = resp.getWriter();//getWritter is a static() present in PrintWriter class
 			
+			ResultSet rs = pstmt.executeQuery();
+	
 			if(rs.next())
 			{
-				out.print("<html><body bgcolor='cyan'><center><h1> Login Sucessfully .Mr/Ms "+rs.getString(1)+"</h1></center></body></html>");
+				out.print("<html><body bgcolor='cyan'><center><h1> Login Sucessfully .Mr/Ms </h1></center></body></html>");
 			}
 			else
 			{
